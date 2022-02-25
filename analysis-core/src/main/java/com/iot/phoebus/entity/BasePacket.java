@@ -20,6 +20,8 @@ public abstract class BasePacket implements Serializable {
 
     private static final long serialVersionUID = -3855579684348436040L;
 
+    protected String date;
+
     protected String id;
 
     protected String mcSendTime;

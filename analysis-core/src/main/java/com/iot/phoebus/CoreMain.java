@@ -1,6 +1,8 @@
 package com.iot.phoebus;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.ReflectUtil;
@@ -13,10 +15,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 /**
  * @author xinquan.w@phoebus-iot.com
@@ -36,7 +36,11 @@ public class CoreMain implements CommandLineRunner {
     public void run(String... args) {
         List<String> lineList = FileUtil.readUtf8Lines("xaa");
         for (String line : lineList) {
-            List<String> groupList = ReUtil.findAllGroup0("\\[[\\w\\s]*\\]", line);
+            List<String> groupList = ReUtil.findAllGroup0("\\[[\\:\\-\\w\\s]*\\]", line);
+            String second = CollUtil.get(groupList, 1);
+            String dateTimeStr = second.substring(1, second.length() - 1);
+            Date dateTime = DateUtil.parse(dateTimeStr);
+            String dateStr = DateUtil.format(dateTime, "yyyyMMdd");
             String last = CollUtil.getLast(groupList);
             if (StrUtil.isNotEmpty(last)) {
                 try {
@@ -44,6 +48,7 @@ public class CoreMain implements CommandLineRunner {
                     String id = data.substring(4, 6);
                     BasePacket packet = ReflectUtil.newInstance("com.iot.phoebus.entity.Id" + id + "Packet");
                     packet.decode(data, cache);
+                    packet.setDate(dateStr);
                 } catch (Exception e) {
                     log.warn(e.getMessage());
                 }

@@ -37,6 +37,7 @@ public class Id33Packet extends BasePacket {
         List<List<String>> rows = new ArrayList<>();
         for (String mcKey : mcKeyList) {
             List<String> row = new ArrayList<>();
+            row.add(date);
             row.add(id);
             row.add(mcSendTime);
             row.add(agcSendTime);

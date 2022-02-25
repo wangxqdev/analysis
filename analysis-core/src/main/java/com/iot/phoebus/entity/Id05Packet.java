@@ -47,6 +47,7 @@ public class Id05Packet extends BasePacket {
     @Override
     public List<List<String>> buildRows() {
         List<String> row = new ArrayList<>();
+        row.add(date);
         row.add(id);
         row.add(mcSendTime);
         row.add(agcSendTime);

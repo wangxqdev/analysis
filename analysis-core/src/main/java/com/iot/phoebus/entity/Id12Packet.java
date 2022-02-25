@@ -46,6 +46,7 @@ public class Id12Packet extends BasePacket {
         List<List<String>> rows = new ArrayList<>();
         for (Id12PacketData data : dataList) {
             List<String> row = new ArrayList<>();
+            row.add(date);
             row.add(id);
             row.add(mcSendTime);
             row.add(agcSendTime);

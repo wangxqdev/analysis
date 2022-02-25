@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: analysis-core
+  profiles:
+    active: dev
+# log4j2
+logging:
+  config: classpath:log4j2.yml

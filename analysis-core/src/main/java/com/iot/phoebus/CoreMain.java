@@ -40,7 +40,7 @@ public class CoreMain implements CommandLineRunner {
             String second = CollUtil.get(groupList, 1);
             String dateTimeStr = second.substring(1, second.length() - 1);
             Date dateTime = DateUtil.parse(dateTimeStr);
-            String dateStr = DateUtil.format(dateTime, "yyyyMMdd");
+            String dateStr = DateUtil.format(dateTime, DateTimeFormatter.BASIC_ISO_DATE);
             String last = CollUtil.getLast(groupList);
             if (StrUtil.isNotEmpty(last)) {
                 try {

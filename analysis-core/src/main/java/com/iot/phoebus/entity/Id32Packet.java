@@ -31,14 +31,12 @@ public class Id32Packet extends BasePacket {
     }
 
     @Override
-    public List<List<String>> buildRows() {
-        List<List<String>> rows = new ArrayList<>();
+    public List<List<Object>> buildRows() {
+        List<List<Object>> rows = new ArrayList<>();
         for (String mcKey : mcKeyList) {
-            List<String> row = new ArrayList<>();
+            List<Object> row = new ArrayList<>();
             row.add(date);
             row.add(id);
-            row.add(mcSendTime);
-            row.add(agcSendTime);
             row.add(mcKey);
             rows.add(row);
         }

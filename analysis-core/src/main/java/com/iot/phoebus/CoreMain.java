@@ -39,8 +39,7 @@ public class CoreMain implements CommandLineRunner {
             List<String> groupList = ReUtil.findAllGroup0("\\[[\\:\\-\\w\\s]*\\]", line);
             String second = CollUtil.get(groupList, 1);
             String dateTimeStr = second.substring(1, second.length() - 1);
-            Date dateTime = DateUtil.parse(dateTimeStr);
-            String dateStr = DateUtil.format(dateTime, DateTimeFormatter.BASIC_ISO_DATE);
+            Date date = DateUtil.parse(dateTimeStr);
             String last = CollUtil.getLast(groupList);
             if (StrUtil.isNotEmpty(last)) {
                 try {
@@ -48,18 +47,21 @@ public class CoreMain implements CommandLineRunner {
                     String id = data.substring(4, 6);
                     BasePacket packet = ReflectUtil.newInstance("com.iot.phoebus.entity.Id" + id + "Packet");
                     packet.decode(data, cache);
-                    packet.setDate(dateStr);
+                    packet.setDate(date);
                 } catch (Exception e) {
                     log.warn(e.getMessage());
                 }
             }
         }
-        List<List<String>> sheet = new ArrayList<>();
+        List<List<Object>> sheet = new ArrayList<>();
         for (Map.Entry<String, List<BasePacket>> entry : cache.entrySet()) {
-            List<BasePacket> packetList = entry.getValue();
-            for (BasePacket packet : packetList) {
-                sheet.addAll(packet.buildRows());
+            List<Object> oneRow = new ArrayList<>();
+            for (BasePacket packet : entry.getValue()) {
+                for (List<Object> objects : packet.buildRows()) {
+                    oneRow.addAll(objects);
+                }
             }
+            sheet.add(oneRow);
         }
         String desktop = System.getProperty("user.home") + "/Desktop/test.xlsx";
         try (BigExcelWriter writer = ExcelUtil.getBigWriter(desktop)) {

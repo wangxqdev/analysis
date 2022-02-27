@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,13 +21,9 @@ public abstract class BasePacket implements Serializable {
 
     private static final long serialVersionUID = -3855579684348436040L;
 
-    protected String date;
+    protected Date date;
 
     protected String id;
-
-    protected String mcSendTime;
-
-    protected String agcSendTime;
 
     /**
      * 解析
@@ -37,8 +34,6 @@ public abstract class BasePacket implements Serializable {
      */
     public BasePacket decode(String data, Map<String, List<BasePacket>> cache) {
         this.id = data.substring(4, 6);
-        this.mcSendTime = data.substring(8, 14);
-        this.agcSendTime = data.substring(14, 20);
         String body = data.substring(20);
         List<String> mcKeyList = decodeBody(body);
         for (String mcKey : mcKeyList) {
@@ -51,9 +46,9 @@ public abstract class BasePacket implements Serializable {
     /**
      * 构建行
      *
-     * @return List<List<String>>
+     * @return List<List<Object>>
      */
-    public abstract List<List<String>> buildRows();
+    public abstract List<List<Object>> buildRows();
 
     /**
      * 解析本体

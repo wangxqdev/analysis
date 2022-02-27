@@ -29,14 +29,12 @@ public class Id25Packet extends BasePacket {
     }
 
     @Override
-    public List<List<String>> buildRows() {
-        List<String> row = new ArrayList<>();
+    public List<List<Object>> buildRows() {
+        List<Object> row = new ArrayList<>();
         row.add(date);
         row.add(id);
-        row.add(mcSendTime);
-        row.add(agcSendTime);
         row.add(mcKey);
-        List<List<String>> rows = new ArrayList<>();
+        List<List<Object>> rows = new ArrayList<>();
         rows.add(row);
         return rows;
     }

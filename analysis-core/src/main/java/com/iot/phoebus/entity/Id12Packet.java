@@ -42,14 +42,12 @@ public class Id12Packet extends BasePacket {
     }
 
     @Override
-    public List<List<String>> buildRows() {
-        List<List<String>> rows = new ArrayList<>();
+    public List<List<Object>> buildRows() {
+        List<List<Object>> rows = new ArrayList<>();
         for (Id12PacketData data : dataList) {
-            List<String> row = new ArrayList<>();
+            List<Object> row = new ArrayList<>();
             row.add(date);
             row.add(id);
-            row.add(mcSendTime);
-            row.add(agcSendTime);
             row.add(data.mcKey);
             row.add(data.carryDiv);
             row.add(data.fromStationNo);

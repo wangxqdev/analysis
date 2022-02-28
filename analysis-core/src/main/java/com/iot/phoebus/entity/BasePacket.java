@@ -1,5 +1,6 @@
 package com.iot.phoebus.entity;
 
+import cn.hutool.core.util.StrUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -37,6 +38,9 @@ public abstract class BasePacket implements Serializable {
         String body = data.substring(20);
         List<String> mcKeyList = decodeBody(body);
         for (String mcKey : mcKeyList) {
+            if (StrUtil.isEmpty(mcKey) || "99999999".equals(mcKey)) {
+                continue;
+            }
             List<BasePacket> packetList = cache.computeIfAbsent(mcKey, k -> new ArrayList<>());
             packetList.add(this);
         }

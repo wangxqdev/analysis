@@ -33,7 +33,6 @@ public class Id25Packet extends BasePacket {
         List<Object> row = new ArrayList<>();
         row.add(date);
         row.add(id);
-        row.add(mcKey);
         List<List<Object>> rows = new ArrayList<>();
         rows.add(row);
         return rows;

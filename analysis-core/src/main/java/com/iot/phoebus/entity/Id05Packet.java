@@ -1,5 +1,6 @@
 package com.iot.phoebus.entity;
 
+import cn.hutool.core.util.StrUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -29,6 +30,8 @@ public class Id05Packet extends BasePacket {
 
     private String locationNo;
 
+    private String spare;
+
     private String bcData;
 
     @Override
@@ -38,6 +41,7 @@ public class Id05Packet extends BasePacket {
         this.fromStationNo = body.substring(13, 17);
         this.toStationNo = body.substring(17, 21);
         this.locationNo = body.substring(21, 33);
+        this.spare = StrUtil.EMPTY;
         this.bcData = body.substring(35, 65);
         List<String> mcKeyList = new ArrayList<>();
         mcKeyList.add(mcKey);
@@ -47,13 +51,14 @@ public class Id05Packet extends BasePacket {
     @Override
     public List<List<Object>> buildRows() {
         List<Object> row = new ArrayList<>();
+        row.add(mcKey);
         row.add(date);
         row.add(id);
-        row.add(mcKey);
         row.add(carryDiv);
         row.add(fromStationNo);
         row.add(toStationNo);
         row.add(locationNo);
+        row.add(spare);
         row.add(bcData);
         List<List<Object>> rows = new ArrayList<>();
         rows.add(row);

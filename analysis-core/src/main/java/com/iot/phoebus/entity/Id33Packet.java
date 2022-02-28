@@ -35,11 +35,10 @@ public class Id33Packet extends BasePacket {
     @Override
     public List<List<Object>> buildRows() {
         List<List<Object>> rows = new ArrayList<>();
-        for (String mcKey : mcKeyList) {
+        for (int i = 0; i < mcKeyList.size(); i++) {
             List<Object> row = new ArrayList<>();
             row.add(date);
             row.add(id);
-            row.add(mcKey);
             rows.add(row);
         }
         return rows;

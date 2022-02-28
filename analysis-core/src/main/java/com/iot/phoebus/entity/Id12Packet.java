@@ -46,9 +46,9 @@ public class Id12Packet extends BasePacket {
         List<List<Object>> rows = new ArrayList<>();
         for (Id12PacketData data : dataList) {
             List<Object> row = new ArrayList<>();
+            row.add(data.mcKey);
             row.add(date);
             row.add(id);
-            row.add(data.mcKey);
             row.add(data.carryDiv);
             row.add(data.fromStationNo);
             row.add(data.toStationNo);
